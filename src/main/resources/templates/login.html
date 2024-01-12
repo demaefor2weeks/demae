@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <link rel="stylesheet" href="your_custom_style.css">
+</head>
+
+<body style="background-color: #ffffff; text-align: center; padding: 50px;">
+
+<div style="background-color: #3498db; color: #ffffff; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
+  <h2>로그인</h2>
+</div>
+
+<form action="/api/logins" method="post" style="max-width: 400px; margin: auto;" enctype="application/json">
+  <label for="email" style="display: block; margin-bottom: 5px;">이메일:</label>
+  <input type="email" id="email" name="email" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #3498db; border-radius: 5px;" required>
+
+  <label for="password" style="display: block; margin-bottom: 5px;">비밀번호:</label>
+  <input type="password" id="password" name="password" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #3498db; border-radius: 5px;" required>
+
+  <button type="submit" style="background-color: #3498db; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">로그인</button>
+</form>
+
+</body>
+
+</html>

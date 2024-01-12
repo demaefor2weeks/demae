@@ -27,18 +27,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication (HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        try{
-            LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
+
+        try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            requestDto.getEmail(),
-                            requestDto.getPassword(),
+                            email,
+                            password,
                             null
                     )
             );
-        }catch (IOException e){
-            log.error(e.getMessage());
+        } catch (Exception e) {
+            log.error("인증 시도 중 오류 발생: " + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -50,11 +52,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = jwtUtil.createToken(username,role);
         jwtUtil.addJwtToCookie(token,response);
+//
+//        // 로그인 성공 시 main.html로 리다이렉트
+//        try {
+//            response.sendRedirect("templates/main.html");
+//        } catch (IOException e) {
+//            log.error("Redirect to main.html failed: " + e.getMessage());
+//            // 에러 처리 로직 추가
+//        }
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException fail)  {
         fail.getCause();
         response.setStatus(401);
+
+
     }
 }

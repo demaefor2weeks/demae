@@ -18,7 +18,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserConfig userConfig;
 
-    public User signup(SignupRequestDto requestDto) {
+    public void signup(SignupRequestDto requestDto) {
         String email = requestDto.getEmail();
         String password = passwordEncoder.encode(requestDto.getPassword());
 
@@ -27,7 +27,7 @@ public class UserService {
         UserRoleEnum role = userConfig.checkRole(requestDto);
 
         User user = new User(requestDto,role,password);
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
 }
