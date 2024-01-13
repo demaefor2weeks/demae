@@ -1,6 +1,5 @@
 package com.example.demae.security;
 
-import com.example.demae.config.CustomAuthenticationSuccessHandler;
 import com.example.demae.dto.login.LoginRequestDto;
 import com.example.demae.enums.UserRoleEnum;
 import com.example.demae.jwt.JwtUtil;
