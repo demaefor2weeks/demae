@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
@@ -24,6 +26,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JwtAuthenticationFilter(JwtUtil jwtUtil ) {
         this.jwtUtil = jwtUtil;
         setFilterProcessesUrl("/api/logins");
+        setAuthenticationSuccessHandler(successHandler());
     }
 
     @Override
@@ -52,15 +55,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             String token = jwtUtil.createToken(username, role);
             jwtUtil.addJwtToCookie(token, response);
-
-            // 리다이렉트
-//            response.sendRedirect("/api/users/main");
-
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException fail)  {
         fail.getCause();
         response.setStatus(401);
+    }
+
+    private AuthenticationSuccessHandler successHandler() {
+        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
+        handler.setDefaultTargetUrl("/api/users/main");
+        return handler;
     }
 }
