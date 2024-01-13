@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth){
-        try {
+
             String username = ((UserDetailsImpl) auth.getPrincipal()).getUsername();
             UserRoleEnum role = ((UserDetailsImpl) auth.getPrincipal()).getUser().getRole();
 
@@ -54,12 +54,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             jwtUtil.addJwtToCookie(token, response);
 
             // 리다이렉트
-            response.sendRedirect("/api/users/main");
+//            response.sendRedirect("/api/users/main");
 
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
     @Override

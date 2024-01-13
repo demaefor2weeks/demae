@@ -19,7 +19,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 //            return;
 //        }
 
-		getRedirectStrategy().sendRedirect(request, response, "/main.html");
+		getRedirectStrategy().sendRedirect(request, response, "/api/users/main");
 	}
 
 //    private String determineTargetUrl(Authentication authentication) {
