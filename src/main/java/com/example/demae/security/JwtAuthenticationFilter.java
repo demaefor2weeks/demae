@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 
-@Slf4j(topic = "로그인 및 JWT 생성 부분")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final JwtUtil jwtUtil;
@@ -39,8 +38,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             null
                     )
             );
-        } catch (Exception e) {
-            log.error("인증 시도 중 오류 발생: " + e.getMessage());
+
+        }catch (IOException e){
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -52,14 +51,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = jwtUtil.createToken(username,role);
         jwtUtil.addJwtToCookie(token,response);
-//
-//        // 로그인 성공 시 main.html로 리다이렉트
-//        try {
-//            response.sendRedirect("templates/main.html");
-//        } catch (IOException e) {
-//            log.error("Redirect to main.html failed: " + e.getMessage());
-//            // 에러 처리 로직 추가
-//        }
+      
+
     }
 
     @Override

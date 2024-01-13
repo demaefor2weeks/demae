@@ -21,8 +21,6 @@ import java.net.URLEncoder;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
-
-@Slf4j(topic = "JwtUtil")
 @Component
 public class JwtUtil {
     // Header KEY 값
@@ -74,7 +72,7 @@ public class JwtUtil {
             // Response 객체에 Cookie 추가
             res.addCookie(cookie);
         } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage());
+            e.getMessage();
         }
     }
 
