@@ -42,13 +42,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth){
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException {
 
             String username = ((UserDetailsImpl) auth.getPrincipal()).getUsername();
             UserRoleEnum role = ((UserDetailsImpl) auth.getPrincipal()).getUser().getRole();
 
             String token = jwtUtil.createToken(username, role);
             jwtUtil.addJwtToCookie(token, response);
+            String redirectUrl = "/api/users/main";
+            response.sendRedirect(redirectUrl);
     }
 
     @Override

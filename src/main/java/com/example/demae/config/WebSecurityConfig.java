@@ -68,12 +68,22 @@ public class WebSecurityConfig {
 
         );
 
-        http.formLogin((formLogin) ->
-                formLogin
-                        .loginPage("/api/users/asdf")
-                        .loginProcessingUrl("/api/users/logins")
-                        .defaultSuccessUrl("/api/users/main")
-        );
+
+
+//        http.formLogin((formLogin) ->
+//                formLogin
+//                        .loginPage("/api/users/asdf")
+//                        .loginProcessingUrl("/api/users/logins")
+//                        .defaultSuccessUrl("/api/users/main")
+//        );
+//        http.formLogin((formLogin) ->
+//                formLogin
+//                        .loginPage("/api/users/asdf")
+//                        .loginProcessingUrl("/api/users/logins")
+//                        .successHandler(new CustomAuthenticationSuccessHandler())
+//                        .permitAll()
+//        );
+
 
         // UsernamePasswordAuthenticationFilter보다 먼저 실행
         http.addFilterBefore(jwtAuthorizationFilter(),JwtAuthenticationFilter.class); // 인가 전 인증

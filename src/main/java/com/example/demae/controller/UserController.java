@@ -29,9 +29,9 @@ public class UserController {
         userService.signup(signupRequestDto);
         return "users";
     }
-    @GetMapping("/asdf")
+    @GetMapping("/loginForm")
     public String AA(){
-        return "asdf";
+        return "login";
     }
 
     @GetMapping("/main")
