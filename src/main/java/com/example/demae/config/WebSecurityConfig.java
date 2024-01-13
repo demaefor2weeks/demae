@@ -69,7 +69,9 @@ public class WebSecurityConfig {
 
         http.formLogin((formLogin) ->
                 formLogin
-                        .loginPage("/api/user/login-page").permitAll()
+                        .loginPage("/api/user/login-page")
+                        .successHandler(new CustomAuthenticationSuccessHandler())
+                        .permitAll()
         );
 
         // UsernamePasswordAuthenticationFilter보다 먼저 실행
