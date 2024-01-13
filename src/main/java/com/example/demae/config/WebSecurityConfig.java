@@ -68,6 +68,11 @@ public class WebSecurityConfig {
 
         );
 
+        http.formLogin((formLogin) ->
+                formLogin
+                        .loginPage("/api/user/login-page").permitAll()
+        );
+
         // UsernamePasswordAuthenticationFilter보다 먼저 실행
         http.addFilterBefore(jwtAuthorizationFilter(),JwtAuthenticationFilter.class); // 인가 전 인증
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 인가전 UserName, Password확인
