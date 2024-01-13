@@ -26,7 +26,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JwtAuthenticationFilter(JwtUtil jwtUtil ) {
         this.jwtUtil = jwtUtil;
         setFilterProcessesUrl("/api/logins");
-        setAuthenticationSuccessHandler(successHandler());
     }
 
     @Override
@@ -61,11 +60,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException fail)  {
         fail.getCause();
         response.setStatus(401);
-    }
-
-    private AuthenticationSuccessHandler successHandler() {
-        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-        handler.setDefaultTargetUrl("/api/users/main");
-        return handler;
     }
 }

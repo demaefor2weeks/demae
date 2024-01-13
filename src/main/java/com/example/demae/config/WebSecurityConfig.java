@@ -65,6 +65,7 @@ public class WebSecurityConfig {
 //                                .requestMatchers(HttpMethod.POST,"/api/lectures").hasRole("ADMIN")
 //                                .requestMatchers("/api/comments/**").hasAnyRole("USER","ADMIN")
                                 .anyRequest().authenticated()
+
         );
 
         // UsernamePasswordAuthenticationFilter보다 먼저 실행
