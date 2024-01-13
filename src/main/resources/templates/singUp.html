@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자 등록</title>
+</head>
+<body>
+
+<h2>사용자 등록 폼</h2>
+
+<form id="userRegistrationForm" action="/api/users" method="post">
+  <label for="email">이메일:</label>
+  <input type="text" id="email" name="email" value="asdf1234@naver.com" required><br>
+
+  <label for="password">비밀번호:</label>
+  <input type="password" id="password" name="password" value="!!EEee1133SS@@" required><br>
+
+  <label for="phone">전화번호:</label>
+  <input type="text" id="phone" name="phone" value="010-1234-1234" required><br>
+
+  <label for="name">이름:</label>
+  <input type="text" id="name" name="name" value="김김김" required><br>
+
+  <label for="address">주소:</label>
+  <input type="text" id="address" name="address" value="서울시" required><br>
+
+  <label for="admin">관리자 여부:</label>
+  <select id="admin" name="admin">
+    <option value="true" selected>예</option>
+    <option value="false">아니오</option>
+  </select><br>
+
+  <label for="adminToken">관리자 토큰:</label>
+  <input type="text" id="adminToken" name="adminToken" value="AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC" required><br>
+
+  <button type="submit">가입하기</button>
+</form>
+
+</body>
+</html>
