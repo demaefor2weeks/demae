@@ -70,8 +70,9 @@ public class WebSecurityConfig {
 
         http.formLogin((formLogin) ->
                 formLogin
-                        .loginPage("/api/users/main")
-                        .loginProcessingUrl("/api/users/asdf")
+                        .loginPage("/api/users/asdf")
+                        .loginProcessingUrl("/api/users/logins")
+                        .defaultSuccessUrl("/api/users/main")
         );
 
         // UsernamePasswordAuthenticationFilter보다 먼저 실행

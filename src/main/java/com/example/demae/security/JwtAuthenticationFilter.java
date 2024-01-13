@@ -30,20 +30,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication (HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        try{
-            LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
-
-            return getAuthenticationManager().authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            requestDto.getEmail(),
-                            requestDto.getPassword(),
-                            null
-                    )
-            );
-        }catch (IOException e){
-            log.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
+        //            LoginRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), LoginRequestDto.class);
+        LoginRequestDto requestDto = new LoginRequestDto(request.getParameter("email"), request.getParameter("password"));
+        return getAuthenticationManager().authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        requestDto.getEmail(),
+                        requestDto.getPassword(),
+                        null
+                )
+        );
     }
 
     @Override
