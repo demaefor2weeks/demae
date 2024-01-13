@@ -33,4 +33,9 @@ public class UserController {
     public String AA(){
         return "asdf";
     }
+
+    @GetMapping("/main")
+    public String main(){
+        return "main";
+    }
 }
