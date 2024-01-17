@@ -4,35 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사용자 등록</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: calc(100% - 16px);
+            padding: 10px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
-<h2>사용자 등록 폼</h2>
+
 
 <form id="userRegistrationForm" action="/api/users" method="post">
+    <h2>사용자 등록 폼</h2>
     <label for="email">이메일:</label>
-    <input type="text" id="email" name="email" required><br>
+    <input type="text" id="email" name="email" required>
 
     <label for="password">비밀번호:</label>
-    <input type="password" id="password" name="password" required><br>
+    <input type="password" id="password" name="password" required>
 
     <label for="phone">전화번호:</label>
-    <input type="text" id="phone" name="phone" required><br>
+    <input type="text" id="phone" name="phone" required>
 
     <label for="name">이름:</label>
-    <input type="text" id="name" name="name" required><br>
+    <input type="text" id="name" name="name" required>
 
     <label for="address">주소:</label>
-    <input type="text" id="address" name="address" required><br>
+    <input type="text" id="address" name="address" required>
 
     <label for="admin">관리자 여부:</label>
     <select id="admin" name="admin">
         <option value="true" selected>예</option>
         <option value="false">아니오</option>
-    </select><br>
+    </select>
 
     <label for="adminToken">관리자 토큰:</label>
-    <input type="text" id="adminToken" name="adminToken" value="AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC" ><br>
+    <input type="text" id="adminToken" name="adminToken" value="AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC">
 
     <button type="submit">가입하기</button>
 </form>

@@ -5,21 +5,58 @@
 	<title>Store Page</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
-      table {
-          border-spacing: 0;
-          width: 80%;
-          margin: 20px 0;
-      }
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f8f9fa; /* Bootstrap default background color */
+			padding: 20px;
+		}
 
-      th, td {
-          padding: 10px;
-          text-align: left;
-      }
+		h1 {
+			color: #007bff; /* Bootstrap primary color */
+			margin-bottom: 20px;
+		}
 
-      th {
-          background-color: #f2f2f2;
-      }
+		table {
+			border-spacing: 0;
+			width: 80%;
+			margin: 20px 0;
+			border: 1px solid #dee2e6; /* Bootstrap table border color */
+		}
 
+		th, td {
+			padding: 15px;
+			text-align: left;
+			border-bottom: 1px solid #dee2e6; /* Bootstrap table border color */
+		}
+
+		th {
+			background-color: #007bff; /* Bootstrap primary color */
+			color: #fff; /* Bootstrap text color on primary background */
+		}
+
+		tbody tr:hover {
+			background-color: #f8f9fa; /* Bootstrap default background color for hovered rows */
+		}
+
+		.no-store {
+			margin-top: 20px;
+			color: #6c757d; /* Bootstrap text-muted color */
+		}
+
+		.alert-danger {
+			background-color: #f8d7da; /* Bootstrap alert-danger background color */
+			border-color: #f5c6cb; /* Bootstrap alert-danger border color */
+			color: #721c24; /* Bootstrap text color on alert-danger background */
+		}
+
+		.btn-info {
+			background-color: #17a2b8; /* Bootstrap info color */
+			color: #fff; /* Bootstrap text color on info background */
+		}
+
+		.btn-info:hover {
+			background-color: #138496; /* Bootstrap darker shade for hovered state */
+		}
 	</style>
 </head>
 <body>
@@ -27,7 +64,7 @@
 <h1>Store</h1>
 
 <div th:if="${not #lists.isEmpty(storeList)}">
-	<table>
+	<table class="table table-striped table-bordered">
 		<thead>
 		<tr>
 			<th>Name</th>
@@ -46,7 +83,7 @@
 </div>
 
 <!-- Display message if storeList is empty -->
-<div th:if="${#lists.isEmpty(storeList)}">
+<div th:if="${#lists.isEmpty(storeList)}" class="no-store">
 	<p>No Store available.</p>
 </div>
 
