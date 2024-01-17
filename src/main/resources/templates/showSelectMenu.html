@@ -6,10 +6,21 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        body {
+            background-color: #f8f9fa; /* 전체 배경색을 설정하세요 */
+        }
+
+        h1 {
+            color: #007bff; /* 헤더의 글자색을 파란색으로 설정하세요 */
+        }
+
         table {
             border-spacing: 0;
             width: 80%;
-            margin: 20px 0; /* 위아래 여백을 조절하세요 */
+            margin: 20px 0;
+            background-color: #ffffff; /* 테이블 배경색을 흰색으로 설정하세요 */
+            border-radius: 10px; /* 테이블 모서리를 둥글게 만듭니다 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다 */
         }
 
         th, td {
@@ -18,9 +29,55 @@
         }
 
         th {
-            background-color: #f2f2f2; /* 헤더 배경색을 설정하세요 */
+            background-color: #007bff;
+            color: #ffffff; /* 헤더 글자색을 흰색으로 설정하세요 */
         }
 
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* 짝수 행 배경색을 연한 회색으로 설정하세요 */
+        }
+
+        .btn-primary, .btn-danger {
+            background-color: #007bff;
+            color: #ffffff; /* 버튼의 배경색과 글자색을 파란색과 흰색으로 설정하세요 */
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .btn-primary:hover, .btn-danger:hover {
+            background-color: #0056b3; /* 버튼에 호버 효과를 추가합니다 */
+        }
+
+        .form-control {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #files {
+            margin-bottom: 10px;
+        }
+
+        .modal-title {
+            color: #007bff; /* 모달의 타이틀 글자색을 파란색으로 설정하세요 */
+        }
+
+        .modal-content {
+            background-color: #ffffff; /* 모달의 내용 배경색을 흰색으로 설정하세요 */
+            border-radius: 10px; /* 모달의 내용 모서리를 둥글게 만듭니다 */
+        }
+
+        .modal-footer .btn-primary {
+            background-color: #007bff;
+            color: #ffffff; /* 모달의 푸터 내의 버튼의 배경색과 글자색을 파란색과 흰색으로 설정하세요 */
+        }
+
+        .modal-footer .btn-primary:hover {
+            background-color: #0056b3; /* 버튼에 호버 효과를 추가합니다 */
+        }
     </style>
 </head>
 <body>
@@ -42,7 +99,7 @@
             <td th:text="${menu.price}"></td>
             <td>
                 <div th:each="url : ${menu.pictureUrls}">
-                    <img th:src="${url}" alt="Menu Image" style="max-width: 100px; max-height: 100px;"/>
+                    <img th:src="${url}" alt="Menu Image" style="max-width: 100px; max-height: 100px;" />
                 </div>
             </td>
         </tr>
@@ -53,9 +110,7 @@
     <p>No menus available.</p>
 </div>
 
-<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#textModal">
-    메뉴정보 수정
-</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#textModal">메뉴정보 수정</button>
 <button type="button" class="btn btn-danger" onclick="deleteMenu()">메뉴정보 삭제</button>
 
 <form id="menuForm" enctype="multipart/form-data">
