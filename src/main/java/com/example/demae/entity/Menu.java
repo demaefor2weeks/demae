@@ -1,5 +1,6 @@
 package com.example.demae.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -21,6 +22,7 @@ public class Menu {
 
     @ManyToOne
     @JoinColumn(name ="store_id",nullable = false)
+    @JsonIgnore
     private Store store;
 
     public Menu(int price,String name,Store store) {

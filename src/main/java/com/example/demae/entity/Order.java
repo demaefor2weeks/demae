@@ -2,6 +2,7 @@ package com.example.demae.entity;
 
 import com.example.demae.enums.OrderState;
 import com.example.demae.enums.Timestamped;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,10 +24,12 @@ public class Order extends Timestamped {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
+    @JsonIgnore
     private Store store;
 
     @Column(nullable = false)
@@ -34,6 +37,7 @@ public class Order extends Timestamped {
     private OrderState state  = OrderState.READY;
 
     @OneToMany(mappedBy = "order")
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     public Order(User user, Store store) {

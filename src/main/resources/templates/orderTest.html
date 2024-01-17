@@ -1,0 +1,38 @@
+<!-- empty.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empty Page</title>
+  <script th:inline="javascript">
+    function confirmOrderWithSSE(orderId) {
+      // SSE 연결을 생성
+      const eventSource = new EventSource('/api/orders/sse/' + orderId);
+
+      // SSE 이벤트 수신
+      eventSource.onmessage = function (event) {
+        const response = JSON.parse(event.data);
+        if (response.status === 'ok') {
+          alert('주문확인 처리되었습니다.');
+          location.reload();
+        } else {
+          alert('주문확인 처리에 실패했습니다.');
+        }
+
+        // SSE 연결 종료
+        eventSource.close();
+      };
+
+      // SSE 에러 처리
+      eventSource.onerror = function (error) {
+        console.error('Error occurred:', error);
+        eventSource.close();
+      };
+    }
+  </script>
+</head>
+<body>
+<!-- 페이지의 내용 -->
+</body>
+</html>

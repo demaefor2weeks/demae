@@ -1,5 +1,6 @@
 package com.example.demae.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,14 +26,17 @@ public class Cart {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="menu_id")
+	@JsonIgnore
 	private Menu menu;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="user_id")
+	@JsonIgnore
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="store_id")
+	@JsonIgnore
 	private Store store;
 
 	@Column(nullable = false)

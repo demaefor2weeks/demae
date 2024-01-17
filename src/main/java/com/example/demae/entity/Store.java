@@ -2,6 +2,7 @@ package com.example.demae.entity;
 
 import com.example.demae.dto.store.StoreRequestDto;
 import com.example.demae.enums.UserRoleEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,7 @@ public class Store {
     
     @OneToOne
     @JoinColumn(name ="user_id")
+    @JsonIgnore
     private User user;
 
     public Store(StoreRequestDto storeRequestDto, User user) {

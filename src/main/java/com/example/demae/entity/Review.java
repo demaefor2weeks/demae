@@ -1,6 +1,7 @@
 package com.example.demae.entity;
 
 import com.example.demae.dto.review.ReviewRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     public Review(ReviewRequestDto reviewRequestDto, Order order) {

@@ -64,10 +64,11 @@ public class CartService {
 		for (Cart Cart : Carts) {
 			Long menuId = Cart.getMenu().getId();
 			int menuCount = Cart.getCount();
+			Long userId = Cart.getUser().getId();
 
 			Menu menu = menuRepository.findById(menuId)
 					.orElseThrow(() -> new RuntimeException("Item not found"));
-			CartResponseDto menuDto = new CartResponseDto(menu, Cart.getCount());
+			CartResponseDto menuDto = new CartResponseDto(menu, Cart.getCount(),userId);
 			cartResponseDto.addItem(menuDto);
 			cartResponseDto.addToTotalPrice(menu.getPrice() * menuCount);
 		}

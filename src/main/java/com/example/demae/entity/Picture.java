@@ -1,5 +1,6 @@
 package com.example.demae.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +30,7 @@ public class Picture {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="menu_id")
+	@JsonIgnore
 	private Menu menu;
 
 	@Column(nullable = false)

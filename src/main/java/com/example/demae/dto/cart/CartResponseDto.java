@@ -12,12 +12,14 @@ public class CartResponseDto {
 	private int price;
 	private int quantity;
 	private Long storeId;
+	private Long userId;
 
-	public CartResponseDto(Menu menu, int quantity){
+	public CartResponseDto(Menu menu, int quantity,Long userId){
 		this.id = menu.getId();
 		this.name =menu.getName();
 		this.price = menu.getPrice();
 		this.storeId = menu.getStore().getId();
 		this.quantity = quantity;
+		this.userId =userId;
 	}
 }

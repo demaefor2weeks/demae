@@ -3,6 +3,7 @@ package com.example.demae.entity;
 import com.example.demae.dto.login.SignupRequestDto;
 import com.example.demae.enums.Timestamped;
 import com.example.demae.enums.UserRoleEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class User extends Timestamped {
 
     @OneToOne
     @JoinColumn(name ="store_id")
+    @JsonIgnore
     private Store store;
 
 
