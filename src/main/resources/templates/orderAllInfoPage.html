@@ -116,6 +116,12 @@
         <p>No menus available in the Cart.</p>
     </div>
 </div>
+<script th:inline="javascript">
+    function redirectToOrderDetails(orderId) {
+        var url = '/api/orders/' + orderId;
+        window.location.href = url;
+    }
+</script>
 
 <script th:inline="javascript">
     function completeOrder(orderId) {
