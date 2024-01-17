@@ -6,24 +6,74 @@
 	<!-- Link to Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
-      table {
-          border-spacing: 0;
-          width: 80%;
-          margin: 20px 0;
-      }
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f8f9fa;
+			padding: 20px;
+		}
 
-      th, td {
-          padding: 10px;
-          text-align: left;
-      }
+		h1 {
+			text-align: center;
+			color: #007bff;
+			margin-bottom: 20px;
+		}
 
-      th {
-          background-color: #f2f2f2;
-      }
+		table {
+			border-collapse: collapse;
+			width: 80%;
+			margin: 20px 0;
+			background-color: #fff;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
 
-      .table-container {
-          overflow-x: auto;
-      }
+		th, td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #dee2e6;
+		}
+
+		th {
+			background-color: #007bff;
+			color: white;
+		}
+
+		.table-container {
+			overflow-x: auto;
+		}
+
+		p {
+			margin-bottom: 20px;
+		}
+
+		.alert {
+			margin-top: 20px;
+		}
+
+		.btn {
+			margin-right: 10px;
+		}
+
+		#textModal {
+			color: #007bff;
+		}
+
+		.modal-title {
+			color: #007bff;
+		}
+
+		.modal-body label {
+			font-weight: bold;
+		}
+
+		.modal-footer {
+			justify-content: space-between;
+		}
+
+		.form-control {
+			margin-bottom: 10px;
+		}
 	</style>
 </head>
 <body>
@@ -113,22 +163,22 @@
 				category: category
 			}),
 		})
-			.then(response => {
-				if (response.ok) {
-					window.location.reload();
-				} else {
+				.then(response => {
+					if (response.ok) {
+						window.location.reload();
+					} else {
 						console.log("실패")
-					return response.text();
-				}
-			})
-			.then(result => {
-				if (result.trim() === "fail") {
-					alert('상점 수정에 실패했습니다.');
-				}
-			})
-			.catch(error => {
-				console.error('에러:', error);
-			});
+						return response.text();
+					}
+				})
+				.then(result => {
+					if (result.trim() === "fail") {
+						alert('상점 수정에 실패했습니다.');
+					}
+				})
+				.catch(error => {
+					console.error('에러:', error);
+				});
 
 		// 데이터 수정 후 모달 닫기
 		$('#textModal').modal('hide');
@@ -145,35 +195,32 @@
 					'Content-Type': 'application/json',
 				},
 			})
-				.then(response => {
-					if (response.ok) {
-						window.location.href = '/api/stores';
-					} else {
-					}
-				}).then(result => {
-		  if (result.trim() === "fail") {
-			  alert('상점 삭제에 실패했습니다.');
-		  }
-	  })
-				.catch(error => {
-					console.error('에러:', error);
-			alert('상점 삭제 중에 오류가 발생했습니다.');
-				})
+					.then(response => {
+						if (response.ok) {
+							window.location.href = '/api/stores';
+						} else {
+						}
+					}).then(result => {
+				if (result.trim() === "fail") {
+					alert('상점 삭제에 실패했습니다.');
+				}
+			})
+					.catch(error => {
+						console.error('에러:', error);
+						alert('상점 삭제 중에 오류가 발생했습니다.');
+					})
 		}
 	}
 </script>
 
 <script>
 	function toMenu() {
-		  var newUrl = location.href + "/allMenu";
-	  	window.location.href = newUrl;
+		var newUrl = location.href + "/allMenu";
+		window.location.href = newUrl;
 	}
 </script>
 
 <!-- Link to Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/

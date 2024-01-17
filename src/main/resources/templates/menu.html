@@ -4,56 +4,58 @@
   <title>Menu Form</title>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-      margin: 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-box {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 100%;
-      box-sizing: border-box;
-      margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
     }
 
     h1 {
       color: #333;
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-    }
+        /* 폼 스타일링 */
+        #menuForm {
+            width: 50%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="file"] {
-      width: calc(100% - 16px);
-      padding: 4px;
-      margin-bottom: 12px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
 
-    button {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            padding-top: 5px; /* 파일 업로드 필드와의 간격 조절 */
+        }
+
+        button {
+            background-color: #007BFF; /* 변경된 부분: 하늘색으로 지정 */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 부드러운 색상 전환 */
+        }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #45a049;
     }
 
     #messageDiv {
@@ -61,33 +63,14 @@
       color: #900;
     }
 
-    .btn-primary {
-      background-color: #007bff;
-      color: #fff;
-      padding: 8px 16px;
-      text-decoration: none;
-      border-radius: 4px;
-      display: block;
-      margin-top: 20px;
-      width: fit-content;
-    }
-
-    .btn-primary:hover {
-      background-color: #0056b3;
-    }
-
     #menuForm #name,
     #menuForm #price {
-      width: calc(50% - 8px);
+      width: calc(50% - 8px); /* 또는 다른 값으로 조절 */
       padding: 8px;
       margin-bottom: 12px;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
-    }
-
-    #menuForm #files {
-      width: calc(100% - 16px);
     }
 
   </style>
@@ -97,46 +80,46 @@
 <h1>Menu Form</h1>
 
 <form id="menuForm" enctype="multipart/form-data">
-  <label for="name">Menu Name:</label>
-  <input type="text" id="name" name="name" required><br>
+    <label for="name">Menu Name:</label>
+    <input type="text" id="name" name="name" required><br>
 
-  <label for="price">Menu Price:</label>
-  <input type="number" id="price" name="price" required><br>
+    <label for="price">Menu Price:</label>
+    <input type="number" id="price" name="price" required><br>
 
-  <label for="files">Select Files:</label>
-  <input type="file" id="files" name="files" multiple><br>
+    <label for="files">Select Files:</label>
+    <input type="file" id="files" name="files" multiple><br>
 
-  <button type="button" onclick="createMenu()" style="background-color: #87ceeb; color: #fff; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Create Menu</button>
+    <button type="button" onclick="createMenu()">Create Menu</button>
 </form>
 
 <div id="messageDiv"></div>
 
 <script th:inline="javascript">
-  /*<![CDATA[*/
-  var storeId = /*[[${storeId}]]*/ null;
-  /*]]>*/
+    /*<![CDATA[*/
+    var storeId = /*[[${storeId}]]*/ null; // 동적으로 설정하려는 가게 ID
+    /*]]>*/
 </script>
 <script>
-  function createMenu() {
-    var formData = new FormData();
-    formData.append('name', $('#name').val());
-    formData.append('price', $('#price').val());
-    formData.append('files', $('#files')[0].files[0]);
+    function createMenu() {
+        var formData = new FormData();
+        formData.append('name', $('#name').val());
+        formData.append('price', $('#price').val());
+        formData.append('files', $('#files')[0].files[0]);
 
-    $.ajax({
-      type: 'POST',
-      url: '/api/stores/' + storeId + '/createMenu',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function (message) {
-        window.location.href = '/api/stores/' + storeId + '/allMenu';
-      },
-      error: function () {
-        $('#messageDiv').text('Failed to create menu.');
-      }
-    });
-  }
+        $.ajax({
+            type: 'POST',
+            url: '/api/stores/' + storeId + '/createMenu',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (message) {
+                window.location.href = '/api/stores/' + storeId + '/allMenu';
+            },
+            error: function () {
+                $('#messageDiv').text('Failed to create menu.');
+            }
+        });
+    }
 </script>
 
 </body>

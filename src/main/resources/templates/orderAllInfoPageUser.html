@@ -6,10 +6,21 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        body {
+            background-color: #f8f9fa; /* 전체 배경색을 설정하세요 */
+        }
+
+        h1 {
+            color: #007bff; /* 헤더의 글자색을 파란색으로 설정하세요 */
+        }
+
         table {
             border-spacing: 0;
             width: 80%;
-            margin: 20px 0; /* 위아래 여백을 조절하세요 */
+            margin: 20px 0;
+            background-color: #ffffff; /* 테이블 배경색을 흰색으로 설정하세요 */
+            border-radius: 10px; /* 테이블 모서리를 둥글게 만듭니다 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다 */
         }
 
         th, td {
@@ -18,7 +29,31 @@
         }
 
         th {
-            background-color: #f2f2f2; /* 헤더 배경색을 설정하세요 */
+            background-color: #007bff;
+            color: #ffffff; /* 헤더 글자색을 흰색으로 설정하세요 */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* 짝수 행 배경색을 연한 회색으로 설정하세요 */
+        }
+
+        .btn-info {
+            background-color: #007bff;
+            color: #ffffff; /* 버튼의 배경색과 글자색을 파란색과 흰색으로 설정하세요 */
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .btn-info:hover {
+            background-color: #0056b3; /* 버튼에 호버 효과를 추가합니다 */
+        }
+
+        p {
+            color: #007bff; /* 메뉴가 비어 있을 때의 글자색을 파란색으로 설정하세요 */
         }
     </style>
 </head>
@@ -33,6 +68,7 @@
             <th>Name</th>
             <th>USER</th>
             <th>ORDER DATE</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -42,7 +78,6 @@
             <td th:text="${menuDto.date}"></td>
             <td>
                 <a class="btn btn-info store-link" th:href="@{/api/orders/{orderId}/multiReview(orderId=${menuDto.id})}">리뷰 정보 보기</a>
-
             </td>
         </tr>
         </tbody>
@@ -51,7 +86,6 @@
 <div th:if="${#lists.isEmpty(orderAllUser)}">
     <p>No menus available in the Cart.</p>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

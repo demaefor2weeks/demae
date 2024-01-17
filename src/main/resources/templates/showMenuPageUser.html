@@ -1,26 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Show Menu</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
-      table {
-          border-spacing: 0;
-          width: 80%;
-          margin: 20px 0; /* 위아래 여백을 조절하세요 */
-      }
+		body {
+			background-color: #f8f9fa; /* 전체 배경색을 설정하세요 */
+		}
 
-      th, td {
-          padding: 10px;
-          text-align: left;
-      }
+		h1 {
+			color: #007bff; /* 헤더의 글자색을 파란색으로 설정하세요 */
+		}
 
-      th {
-          background-color: #f2f2f2; /* 헤더 배경색을 설정하세요 */
-      }
+		table {
+			border-spacing: 0;
+			width: 80%;
+			margin: 20px 0;
+			background-color: #ffffff; /* 테이블 배경색을 흰색으로 설정하세요 */
+			border-radius: 10px; /* 테이블 모서리를 둥글게 만듭니다 */
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다 */
+		}
+
+		th, td {
+			padding: 10px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #007bff;
+			color: #ffffff; /* 헤더 글자색을 흰색으로 설정하세요 */
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2; /* 짝수 행 배경색을 연한 회색으로 설정하세요 */
+		}
+
+		.store-link {
+			background-color: #007bff;
+			color: #ffffff; /* 링크 버튼의 배경색과 글자색을 파란색과 흰색으로 설정하세요 */
+			border: none;
+			padding: 10px 15px;
+			border-radius: 5px;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.store-link:hover {
+			background-color: #0056b3; /* 링크에 호버 효과를 추가합니다 */
+		}
+
+		.btn-primary {
+			background-color: #007bff;
+			color: #ffffff; /* 일반 버튼의 배경색과 글자색을 파란색과 흰색으로 설정하세요 */
+			border: none;
+			padding: 10px 15px;
+			border-radius: 5px;
+			text-decoration: none;
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.btn-primary:hover {
+			background-color: #0056b3; /* 버튼에 호버 효과를 추가합니다 */
+		}
+
+		.btn-info {
+			background-color: #007bff;
+			color: #ffffff; /* 정보 버튼의 배경색과 글자색을 파란색과 흰색으로 설정하세요 */
+			border: none;
+			padding: 10px 15px;
+			border-radius: 5px;
+			text-decoration: none;
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.btn-info:hover {
+			background-color: #0056b3; /* 버튼에 호버 효과를 추가합니다 */
+		}
 	</style>
 </head>
+
 <body>
 
 <h1>Show Menu</h1>
@@ -41,12 +103,12 @@
 			<td th:text="${menu.price}"></td>
 			<td>
 				<div th:each="url : ${menu.pictureUrls}">
-					<img th:src="${url}" alt="Menu Image" style="max-width: 100px; max-height: 100px;"/>
+					<img th:src="${url}" alt="Menu Image" style="max-width: 100px; max-height: 100px;" />
 				</div>
 			</td>
 			<td>
-				<a class="btn btn-info store-link" th:href="@{/api/stores/{storeId}/selectMenu/{menuId}(storeId=${menu.storeId}, menuId=${menu.id})}">메뉴 정보 보기</a>
-
+				<a class="btn btn-info store-link"
+				   th:href="@{/api/stores/{storeId}/selectMenu/{menuId}(storeId=${menu.storeId}, menuId=${menu.id})}">메뉴 정보 보기</a>
 			</td>
 		</tr>
 		</tbody>
@@ -56,6 +118,7 @@
 	<p>No menus available.</p>
 </div>
 <a th:href="@{'/'}" class="btn btn-primary">Start</a>
+
 <script>
 	function toCart() {
 		window.location.href = '/api/cart';
@@ -64,4 +127,5 @@
 <button type="button" class="btn btn-info" onclick="toCart()">장바구니</button>
 <button type="button" class="btn btn-info" onclick="toMenu()">장바구니 상품 주문하기</button>
 </body>
+
 </html>
