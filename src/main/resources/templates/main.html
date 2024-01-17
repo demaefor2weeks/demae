@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="your_custom_style.css">
 </head>
-<body>
-<h1>아니 이게 무슨 메인이ㅑㅇ!!! 그ㅑㄴㅇ 니가 알아서해</h1>
 
-<a class="btn btn-info store-link"
-   th:href="@{/api/stores}">가게 정보 보기</a>
-<a class="btn btn-info store-link"
-   th:href="@{/api/orders}">주문 정보 보기</a>
+<body style="background-color: #ffffff; text-align: center; padding: 50px;">
+
+<div style="background-color: #3498db; color: #ffffff; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
+    <h1>메인 입니다</h1>
+</div>
+
+<a class="btn btn-info store-link" href="/api/stores" style="background-color: #3498db; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; margin-right: 10px;">가게 정보 보기</a>
+
+<a class="btn btn-info store-link" href="/api/orders" style="background-color: #3498db; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none;">주문 정보 보기</a>
+
 </body>
+
 </html>
