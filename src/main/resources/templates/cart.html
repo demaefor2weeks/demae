@@ -2,130 +2,123 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Show Menu</title>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <title>Cart List</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
     table {
       border-spacing: 0;
       width: 80%;
-      margin: 20px 0; /* 위아래 여백을 조절하세요 */
+      margin: 20px 0;
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     th, td {
-      padding: 10px;
+      padding: 15px;
       text-align: left;
     }
 
     th {
-      background-color: #f2f2f2; /* 헤더 배경색을 설정하세요 */
+      background-color: #007bff;
+      color: #ffffff;
     }
 
-    .table-container {
-      overflow-x: auto; /* 가로 스크롤이 필요한 경우 자동으로 스크롤이 생성되도록 함 */
+    tbody tr:hover {
+      background-color: #f2f2f2;
+    }
+
+    .total-price {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .cart-buttons {
+      margin-top: 20px;
+    }
+
+    .btn-primary, .btn-danger {
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
 
-<h1>Cart List</h1>
+<div class="container">
+  <h1>Cart List</h1>
 
-<div th:if="${not #lists.isEmpty(cartList)}">
-  <table>
-    <thead>
-    <tr>
-      <th>Menu</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Quantity</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="menuDto : ${cartList.menu}">
-      <td th:text="${menuDto.id}"></td>
-      <td th:text="${menuDto.name}"></td>
-      <td th:text="${menuDto.price}"></td>
-      <td th:text="${menuDto.quantity}"></td>
-    </tr>
-    </tbody>
-  </table>
-  <p>Total Price: <span th:text="${cartList.totalPrice}"></span></p>
+  <div th:if="${not #lists.isEmpty(cartList)}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Menu</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="menuDto : ${cartList.menu}">
+        <td th:text="${menuDto.id}"></td>
+        <td th:text="${menuDto.name}"></td>
+        <td th:text="${menuDto.price}"></td>
+        <td th:text="${menuDto.quantity}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="total-price">Total Price: <span th:text="${cartList.totalPrice}"></span></p>
+  </div>
+
+  <div th:if="${#lists.isEmpty(cartList)}">
+    <p>No menus available in the Cart.</p>
+  </div>
+
+  <div class="cart-buttons">
+    <button type="button" class="btn btn-primary" onclick="createOrder()">Order Items</button>
+    <button type="button" class="btn btn-danger" onclick="deleteCart()">Empty Cart</button>
+  </div>
 </div>
-<div th:if="${#lists.isEmpty(cartList)}">
-  <p>No menus available in the Cart.</p>
-</div>
 
-<button type="button" class="btn btn-primary" onclick="createOrder()" style="display: inline-block;">장바구니 상품 주문하기</button>
-<button type="button" class="btn btn-danger" onclick="deleteCart()" style="display: inline-block;">장바구니 삭제</button>
-
-<!--<script th:inline="javascript">-->
-<!--  function confirmOrderWithSSE(orderId) {-->
-<!--    // SSE 연결을 생성-->
-<!--    const eventSource = new EventSource('/api/orders/sse/' + orderId);-->
-
-<!--    // SSE 이벤트 수신-->
-<!--    eventSource.onmessage = function (event) {-->
-<!--      const response = JSON.parse(event.data);-->
-<!--      if (response.status === 'ok') {-->
-<!--        alert('주문확인 처리되었습니다.');-->
-<!--        location.reload();-->
-<!--      } else {-->
-<!--        alert('주문확인 처리에 실패했습니다.');-->
-<!--      }-->
-
-<!--      // SSE 연결 종료-->
-<!--      eventSource.close();-->
-<!--    };-->
-
-<!--    // SSE 에러 처리-->
-<!--    eventSource.onerror = function (error) {-->
-<!--      console.error('Error occurred:', error);-->
-<!--      eventSource.close();-->
-<!--    };-->
-<!--  }-->
-<!--</script>-->
 <script th:inline="javascript">
   var cartList = /*[[${cartList.menu}]]*/ null;
   var totalPrice = /*[[${cartList.totalPrice}]]*/ 0;
 </script>
 
 <script>
-  // 주문 버튼을 눌렀을 때의 이벤트 처리
   function createOrder() {
-    // 주문 처리 AJAX 요청
-    // (이 부분은 실제 주문 처리 로직 및 주문자의 고유 ID를 서버로 전달하는 로직이 들어갑니다.)
-
-      var orderRequest = {
-       cartList: cartList,
-        totalPrice: totalPrice
-      };
+    var orderRequest = {
+      cartList: cartList,
+      totalPrice: totalPrice
+    };
 
     $.ajax({
       type: 'POST',
       url: '/api/orders',
       contentType: 'application/json',
-      data: JSON.stringify(orderRequest), // menuDto 속성들을 직렬화하여 전송
+      data: JSON.stringify(orderRequest),
       success: function (response) {
-        alert('주문이 완료되었습니다.');
-        // window.location.href = '/api/stores';
-        // 주문 처리가 완료되면 SSE 연결 설정
+        alert('Order placed successfully.');
         setupSSE(response);
       },
       error: function (error) {
         console.error(error);
       }
     });
-
-
   }
 
-  // SSE 연결을 설정하는 함수
   function setupSSE(order) {
-    const eventSource = new EventSource('/api/orders/connect/'+order);
+    const eventSource = new EventSource('/api/orders/connect/' + order);
 
     eventSource.onmessage = function (event) {
       console.log("cart : " + event.data);
-      // 여기에서 서버에서 받은 메시지를 처리하는 로직을 추가할 수 있습니다.
     };
 
     eventSource.onerror = function (error) {
@@ -133,70 +126,6 @@
     };
   }
 </script>
-
-<!--<script th:inline="javascript">-->
-<!--  var cartList = /*[[${cartList.menu}]]*/ null;-->
-<!--  var totalPrice = /*[[${cartList.totalPrice}]]*/ 0;-->
-<!--  function createOrder() {-->
-<!--    console.log(cartList)-->
-<!--    var orderRequest = {-->
-<!--      cartList: cartList,-->
-<!--      totalPrice: totalPrice-->
-<!--    };-->
-
-
-<!--    $.ajax({-->
-<!--      type: 'POST',-->
-<!--      url: '/api/orders',-->
-<!--      contentType: 'application/json',-->
-<!--      data: JSON.stringify(orderRequest), // menuDto 속성들을 직렬화하여 전송-->
-<!--      success: function (response) {-->
-<!--         alert('주문이 완료되었습니다.');-->
-<!--         window.location.href = '/api/stores';-->
-<!--        console.log(response);-->
-<!--      },-->
-<!--      error: function (error) {-->
-<!--        console.error(error);-->
-<!--      }-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-
-
-
-<!--<script>-->
-<!--  function deleteCart() {-->
-<!--    // Ajax 호출-->
-<!--    $.ajax({-->
-<!--      type: 'DELETE',-->
-<!--      url: '/api/cart',-->
-<!--      contentType: 'application/json',-->
-<!--      success: function (response) {-->
-<!--        if (response =="ok") {-->
-<!--          alert('장바구니정보가 삭제 되었습니다.');-->
-<!--          window.location.href = '/api/stores';-->
-<!--        }-->
-<!--        console.log(response);-->
-<!--      },-->
-<!--      error: function (error) {-->
-<!--        // 실패 시 동작-->
-<!--        console.error(error);-->
-<!--      }-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-
-<script th:inline="javascript">
-  /*<![CDATA[*/
-  var storeId = /*[[${storeId}]]*/ null; // 동적으로 설정하려는 가게 ID
-  var menuId = /*[[${menuId}]]*/ null;  // 동적으로 설정하려는 메뉴 ID
-  /*]]>*/
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

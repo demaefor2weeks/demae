@@ -2,13 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Delivery App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h1>일단 index.html</h1>
-<a th:href="@{/api/users/main}">메인 페이지</a>
-<a th:href="@{/api/stores}">가게 페이지</a>
-<a th:href="@{/api/users}">회원 가입</a>
-<a th:href="@{/api/users/loginForm}">로그인</a>
+<h1>出前</h1>
+<a th:href="@{/api/users/main}">메인 페이지 メインページ</a>
+<a th:href="@{/api/stores}">가게 페이지　お店ページ</a>
+<a th:href="@{/api/users}">회원 가입　会員登録</a>
+<a th:href="@{/api/users/loginForm}">로그인　ログイン</a>
 </body>
 </html>
