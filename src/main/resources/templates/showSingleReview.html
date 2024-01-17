@@ -5,21 +5,70 @@
     <title>Show Menu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
         table {
-            border-spacing: 0;
+            border-collapse: collapse;
             width: 80%;
             margin: 20px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: left;
+            border-bottom: 1px solid #dee2e6;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #007bff;
+            color: white;
         }
 
+        p {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+
+        #textModal {
+            color: #007bff;
+        }
+
+        .modal-title {
+            color: #007bff;
+        }
+
+        .modal-body label {
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            justify-content: space-between;
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -30,8 +79,8 @@
     <table>
         <thead>
         <tr>
-            <th>point</th>
-            <th>content</th>
+            <th>Point</th>
+            <th>Content</th>
         </tr>
         </thead>
         <tbody>
@@ -46,10 +95,11 @@
     <p>No menus available.</p>
 </div>
 
-<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#textModal">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#textModal">
     리뷰 정보 수정
 </button>
 <button type="button" class="btn btn-danger" onclick="deleteReview()">리뷰 정보 삭제</button>
+
 <!-- Modal for text input -->
 <div class="modal" id="textModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -74,6 +124,7 @@
         </div>
     </div>
 </div>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
     var orderId = /*[[${orderId}]]*/ null; // 동적으로 설정하려는 가게 ID
@@ -89,14 +140,14 @@
 
         $.ajax({
             type: 'PATCH',
-            url: '/api/orders/'+orderId+'/patchReview/'+reviewId,
+            url: '/api/orders/' + orderId + '/patchReview/' + reviewId,
             contentType: 'application/json',
-            data: JSON.stringify(reviewData),  // 객체 이름을 reviewData로 변경
+            data: JSON.stringify(reviewData),
             success: function (message) {
-                window.location.href = '/api/orders/'+orderId+'/multiReview';
+                window.location.href = '/api/orders/' + orderId + '/multiReview';
             },
             error: function () {
-                $('#messageDiv').text('Failed to update review.');  // 실패 시 메시지 변경
+                $('#messageDiv').text('Failed to update review.');
             }
         });
     }
@@ -110,11 +161,11 @@
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/orders/'+orderId+'/deleteReview/'+reviewId,
+            url: '/api/orders/' + orderId + '/deleteReview/' + reviewId,
             contentType: 'application/json',
             data: JSON.stringify(menuData),
             success: function (message) {
-                window.location.href = '/api/orders/'+orderId+'/multiReview';
+                window.location.href = '/api/orders/' + orderId + '/multiReview';
             },
             error: function () {
                 $('#messageDiv').text('Failed to create menu.');
@@ -122,8 +173,6 @@
         });
     }
 </script>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

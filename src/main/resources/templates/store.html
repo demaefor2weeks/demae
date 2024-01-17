@@ -10,6 +10,7 @@
       margin: 20px;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
     .form-box {
@@ -21,10 +22,12 @@
       width: 100%;
       box-sizing: border-box;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     h1 {
       color: #333;
+      margin-bottom: 20px;
     }
 
     label {
@@ -34,11 +37,16 @@
 
     input {
       width: calc(100% - 16px);
-      padding: 8px;
+      padding: 10px;
       margin-bottom: 12px;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
     }
 
     button {
@@ -48,6 +56,7 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     button:hover {
@@ -62,12 +71,13 @@
     .btn-primary {
       background-color: #007bff;
       color: #fff;
-      padding: 8px 16px; /* 수정된 부분: 작은 패딩으로 변경 */
+      padding: 8px 16px;
       text-decoration: none;
       border-radius: 4px;
       display: block;
       margin-top: 20px;
-      width: fit-content; /* 수정된 부분: 콘텐츠에 맞게 크기 조절 */
+      width: fit-content;
+      transition: background-color 0.3s;
     }
 
     .btn-primary:hover {
@@ -81,13 +91,13 @@
   <h1>Store Add Form</h1>
 
   <label for="name">Store Name:</label>
-  <input type="text" id="name" name="name" required><br>
+  <input type="text" id="name" name="name" required>
 
-  <label for="address">Store address:</label>
-  <input type="text" id="address" name="address" required><br>
+  <label for="address">Store Address:</label>
+  <input type="text" id="address" name="address" required>
 
-  <label for="category">Store category:</label>
-  <input type="text" id="category" name="category" required><br>
+  <label for="category">Store Category:</label>
+  <input type="text" id="category" name="category" required>
 
   <button type="button" onclick="createStore()">Create Store</button>
 </div>
@@ -113,7 +123,7 @@
         window.location.href = '/api/stores';
       },
       error: function (xhr, textStatus, errorThrown) {
-          alert('공백 또는 이미 가입된 계정인지 확인하세요');
+        alert('공백 또는 이미 가입된 계정인지 확인하세요');
       }
     });
   }

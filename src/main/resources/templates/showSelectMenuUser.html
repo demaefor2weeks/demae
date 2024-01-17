@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Show Menu</title>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
-      table {
-          border-spacing: 0;
-          width: 80%;
-          margin: 20px 0; /* 위아래 여백을 조절하세요 */
-      }
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f8f9fa;
+			padding: 20px;
+		}
 
-      th, td {
-          padding: 10px;
-          text-align: left;
-      }
+		h1 {
+			text-align: center;
+			color: #007bff;
+			margin-bottom: 20px;
+		}
 
-      th {
-          background-color: #f2f2f2; /* 헤더 배경색을 설정하세요 */
-      }
+		table {
+			border-collapse: collapse;
+			width: 80%;
+			margin: 20px 0;
+			background-color: #fff;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		th, td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #dee2e6;
+		}
+
+		th {
+			background-color: #f2f2f2;
+			color: #007bff;
+		}
+
+		img {
+			max-width: 100px;
+			max-height: 100px;
+		}
+
+		select {
+			width: 70px;
+			padding: 8px;
+			border-radius: 4px;
+		}
+
+		.btn-primary {
+			display: inline-block;
+			margin-top: 10px;
+		}
+
+		p {
+			margin-bottom: 20px;
+		}
 	</style>
 </head>
+
 <body>
 
 <h1>Show Menu</h1>
@@ -32,8 +72,8 @@
 		<tr>
 			<th>Name</th>
 			<th>Price</th>
-			<th>image</th>
-			<th>quantity</th>
+			<th>Image</th>
+			<th>Quantity</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -42,7 +82,7 @@
 			<td th:text="${menu.price}"></td>
 			<td>
 				<div th:each="url : ${menu.pictureUrls}">
-					<img th:src="${url}" alt="Menu Image" style="max-width: 100px; max-height: 100px;"/>
+					<img th:src="${url}" alt="Menu Image" />
 				</div>
 			</td>
 			<td>
@@ -54,7 +94,7 @@
 		</tbody>
 	</table>
 
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#textModal" style="display: inline-block;" onclick="addCart()">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#textModal" onclick="addCart()">
 		장바구니 담기
 	</button>
 </div>
@@ -65,35 +105,34 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	var storeId = /*[[${storeId}]]*/ null; // 동적으로 설정하려는 가게 ID
-	var menuId = /*[[${menuId}]]*/ null;  // 동적으로 설정하려는 메뉴 ID
+	var menuId = /*[[${menuId}]]*/ null; // 동적으로 설정하려는 메뉴 ID
 	/*]]>*/
 </script>
 
 <script>
 	function addCart() {
-		// 선택된 메뉴의 ID
-		// 선택된 수량
 		var quantity = $('#quantity').val();
 
-		// Ajax 호출
 		$.ajax({
 			type: 'POST',
 			url: '/api/cart',
 			contentType: 'application/json',
-			data: JSON.stringify({ menuId: menuId, quantity: quantity, storeId: storeId }),
+			data: JSON.stringify({
+				menuId: menuId,
+				quantity: quantity,
+				storeId: storeId
+			}),
 			success: function (response) {
 				if (response === 'ok') {
 					alert('장바구니에 등록 되었습니다.');
 					window.location.href = '/api/stores/' + storeId + "/allMenu";
-				} else if(response == 'fail'){
-					alert('다른 가게 메뉴를 담기전 장바구니를 비워주세요.');
+				} else if (response == 'fail') {
+					alert('다른 가게 메뉴를 담기 전 장바구니를 비워주세요.');
 				} else {
 					alert('장바구니는 최대 10개만 담을 수 있습니다.');
 				}
-				console.log(response);
 			},
 			error: function (error) {
-				// 실패 시 동작
 				console.error(error);
 			}
 		});
@@ -104,4 +143,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
