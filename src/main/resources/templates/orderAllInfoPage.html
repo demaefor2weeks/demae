@@ -119,34 +119,6 @@
 </div>
 
 <script th:inline="javascript">
-    function redirectToOrderDetails(orderId) {
-        var url = '/api/orders/' + orderId;
-        window.location.href = url;
-    }
-</script>
-
-<script th:inline="javascript">
-    function confirmOrderWithSSE(orderId) {
-        const eventSource = new EventSource('/api/orders/sse/' + orderId);
-
-        eventSource.onmessage = function (event) {
-            console.log("EventSource: " + event.data)
-            const response = JSON.parse(event.data);
-            if (response.status === 'ok') {
-                alert('Order confirmation successful.');
-                location.reload();
-            } else {
-                alert('Order confirmation failed.');
-            }
-        };
-
-        eventSource.onerror = function (error) {
-            console.error('Error occurred:', error);
-        };
-    }
-</script>
-
-<script th:inline="javascript">
     function completeOrder(orderId) {
         $.ajax({
             type: 'POST',

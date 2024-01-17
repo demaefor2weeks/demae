@@ -9,7 +9,7 @@
       table {
           border-spacing: 0;
           width: 80%;
-          margin: 20px 0; /* 위아래 여백을 조절하세요 */
+          margin: 20px 0;
       }
 
       th, td {
@@ -18,11 +18,11 @@
       }
 
       th {
-          background-color: #f2f2f2; /* 헤더 배경색을 설정하세요 */
+          background-color: #f2f2f2;
       }
 
       .table-container {
-          overflow-x: auto; /* 가로 스크롤이 필요한 경우 자동으로 스크롤이 생성되도록 함 */
+          overflow-x: auto;
       }
 	</style>
 </head>
@@ -50,7 +50,6 @@
 	</table>
 </div>
 
-<!-- Display message if storeList is empty -->
 <div th:if="${#lists.isEmpty(storeList)}">
 	<p>No Store available.</p>
 </div>
@@ -116,25 +115,19 @@
 		})
 			.then(response => {
 				if (response.ok) {
-					// 성공 시 처리
 					window.location.reload();
 				} else {
-					// 실패 시 처리
 						console.log("실패")
 					return response.text();
 				}
 			})
 			.then(result => {
-				// 서버에서 "ok" 또는 "fail"을 응답으로 보내면 이에 따라 처리
 				if (result.trim() === "fail") {
-					// 클라이언트에서 수정 실패 시 팝업창 띄우기
 					alert('상점 수정에 실패했습니다.');
 				}
 			})
 			.catch(error => {
 				console.error('에러:', error);
-				// 서버에서 오류 응답이 오면 여기에서 처리
-				// alert('상점 수정 중에 오류가 발생했습니다.');
 			});
 
 		// 데이터 수정 후 모달 닫기
@@ -155,15 +148,10 @@
 				.then(response => {
 					if (response.ok) {
 						window.location.href = '/api/stores';
-						// 또는
-						// window.location.href = '/redirect-url'; // 리다이렉션
 					} else {
-						// console.error('가게 삭제 중 오류 발생');
 					}
 				}).then(result => {
-		  // 서버에서 "ok" 또는 "fail"을 응답으로 보내면 이에 따라 처리
 		  if (result.trim() === "fail") {
-			  // 클라이언트에서 수정 실패 시 팝업창 띄우기
 			  alert('상점 삭제에 실패했습니다.');
 		  }
 	  })
