@@ -38,8 +38,6 @@ public class MenuService {
 
     public List<MenuResponseDto> AllMenu(Long storeId) {
         List<Menu> storeCheck = menuRepository.findByStoreId(storeId);
-        List<Menu> newList = new ArrayList<>(storeCheck);
-
         List<MenuResponseDto> menuResponseDto = new ArrayList<>();;
         for (Menu menu : storeCheck) {
             List<String> pictureUrls = awsS3Service.getObjectUrlsForMenu(menu.getId());
@@ -59,7 +57,7 @@ public class MenuService {
 
     @Transactional
     public void patchMenu(Long storeId,Long menuId,MenuRequestDto menuRequestDto,String email) {
-        Store findStore = storeRepository.findByMenusId(menuId);
+        Store findStore = storeRepository.findById(storeId).orElseThrow(()-> new IllegalArgumentException("가게 정보가 없습니다."));
         Menu menu = menuRepository.findById(menuId).orElseThrow(()->new IllegalArgumentException("메뉴가 없습니다."));
         if(!findStore.getUser().getEmail().equals(email)){
             throw new IllegalArgumentException("본인의 가게가 아닙니다.");
@@ -78,7 +76,7 @@ public class MenuService {
 
 
     public void createPicture(Long storeId,Long menuId, List<MultipartFile> file,String email) throws IOException {
-        Store store = storeRepository.findByMenusId(menuId);
+        Store store = storeRepository.findById(storeId).orElseThrow(()-> new IllegalArgumentException("가게 정보가 없습니다."));
         if(!store.getUser().getEmail().equals(email)){
             throw new IllegalArgumentException("본인의 가게가 아닙니다.");
         }
@@ -86,7 +84,7 @@ public class MenuService {
     }
 
     public void deletePicture(Long storeId, Long menuId,String email) {
-        Store store = storeRepository.findByMenusId(menuId);
+        Store store = storeRepository.findById(storeId).orElseThrow(()-> new IllegalArgumentException("가게 정보가 없습니다."));
         if(!store.getUser().getEmail().equals(email)){
             throw new IllegalArgumentException("본인의 가게가 아닙니다.");
         }

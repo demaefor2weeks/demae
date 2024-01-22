@@ -36,6 +36,7 @@ public class UserController {
     @GetMapping("/main")
     public String main(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         User user = userDetails.getUser();
+
         if (user.getRole().name().equals("ADMIN") && user.getStore() != null) {
             model.addAttribute("storeId", user.getStore().getId());
             return "adminMain";
@@ -45,4 +46,5 @@ public class UserController {
         }
         return "main";
     }
+
 }

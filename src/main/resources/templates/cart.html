@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Cart List</title>
+
+  <title>Show Menu</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="/common-sse.js"></script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
@@ -36,6 +40,7 @@
       background-color: #f2f2f2;
     }
 
+
     .total-price {
       font-size: 18px;
       font-weight: bold;
@@ -47,6 +52,7 @@
 
     .btn-primary, .btn-danger {
       margin-right: 10px;
+
     }
   </style>
 </head>
@@ -87,6 +93,9 @@
   </div>
 </div>
 
+<!-- <button type="button" class="btn btn-primary" onclick="createOrder()" style="display: inline-block;">장바구니 상품 주문하기</button>
+<button type="button" class="btn btn-danger" onclick="deleteCart()" style="display: inline-block;">장바구니 삭제</button> -->
+
 <script th:inline="javascript">
   var cartList = /*[[${cartList.menu}]]*/ null;
   var totalPrice = /*[[${cartList.totalPrice}]]*/ 0;
@@ -105,8 +114,12 @@
       contentType: 'application/json',
       data: JSON.stringify(orderRequest),
       success: function (response) {
-        alert('Order placed successfully.');
-        setupSSE(response);
+        
+        alert('주문이 완료되었습니다.');
+        var orderId = response;
+        console.log(orderId)
+        setupSSE(orderId)
+
       },
       error: function (error) {
         console.error(error);
@@ -114,18 +127,29 @@
     });
   }
 
-  function setupSSE(order) {
-    const eventSource = new EventSource('/api/orders/connect/' + order);
 
+  // SSE 연결을 설정하는 함수
+  function setupSSE(orderId) {
+    const eventSource = new EventSource('/api/sse/user/'+ orderId);
     eventSource.onmessage = function (event) {
-      console.log("cart : " + event.data);
-    };
 
+    };
     eventSource.onerror = function (error) {
       console.error('EventSource failed:', error);
     };
   }
 </script>
+
+
+<!-- <script th:inline="javascript">
+  /*<![CDATA[*/
+  var storeId = /*[[${storeId}]]*/ null; // 동적으로 설정하려는 가게 ID
+  var menuId = /*[[${menuId}]]*/ null;  // 동적으로 설정하려는 메뉴 ID
+  /*]]>*/
+</script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

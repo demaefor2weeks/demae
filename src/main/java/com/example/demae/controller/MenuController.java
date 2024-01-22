@@ -62,8 +62,6 @@ public class MenuController {
                              @AuthenticationPrincipal UserDetailsImpl userDetails){
         MenuResponseDto selectMenu = menuService.selectMenu(storeId,menuId);
         model.addAttribute("menuOne", selectMenu);
-        model.addAttribute("storeId", storeId); // 여기에 동적으로 설정하려는 가게 ID 값을 넣어주세요.
-        model.addAttribute("menuId", menuId);
         if (userDetails.getUser().getRole().name().equals("ADMIN") &&
                 userDetails.getUser().getStore().getId() == storeId) {
             return "showSelectMenu";

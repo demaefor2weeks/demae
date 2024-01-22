@@ -35,6 +35,7 @@ public class OrderService {
 	private final UserRepository userRepository;
 	private final OrderListRepository orderListRepository;
 	private final CartRepository cartRepository;
+
 	@Transactional
 	public Order createOrder(OrderRequestDto orderRequestDto, User user) {
 		if (user.getPoint() < orderRequestDto.getTotalPrice()) {
@@ -63,6 +64,15 @@ public class OrderService {
 		throw new IllegalStateException("본인 가게 정보만 조회가 가능합니다.");
 	}
 
+
+	public Order getOrderForUser(Long orderId, User user) {
+		Order findOrder = orderRepository.findById(orderId).orElseThrow();
+		if (findOrder.getId() == orderId  && findOrder.getUser().getId() == user.getId())  {
+			return findOrder;
+		}
+		throw new IllegalStateException("본인 주문 정보만 조회가 가능합니다.");
+	}
+
 	public OrderResponseDto createOrderResponse(List<OrderList> orderLists) {
 		OrderResponseDto orderResponseDto = new OrderResponseDto();
 		for (OrderList orderList : orderLists) {
@@ -84,16 +94,15 @@ public class OrderService {
 		return orderAllResponseDtoList;
 	}
 
-	@Transactional
 	public Order completeOrder(Long orderId, User user) {
 		Order findOrder = orderRepository.findById(orderId).orElseThrow();
 		if (user.getStore() != null && user.getStore().getId().equals(findOrder.getStore().getId()))  {
-			Order order = orderRepository.findById(orderId).orElseThrow();
-			order.setState(OrderState.CONFIRM);
-			return order;
+			return orderRepository.findById(orderId).orElseThrow();
 		}
 		return null;
 	}
+
+
 
 	public List<OrderAllResponseDto> getAllOrderInfoUser(User user) {
 		List<OrderAllResponseDto> orderResponseDto = new ArrayList<>();
@@ -104,4 +113,5 @@ public class OrderService {
 		}
 		return orderResponseDto;
 	}
+
 }

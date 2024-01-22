@@ -46,25 +46,26 @@ public class ReviewController {
                                Model model){
         ReviewResponseDto selectReview = reviewService.singleMenu(orderId,reviewId);
         model.addAttribute("reviewOne",selectReview);
-        model.addAttribute("orderId", orderId); // orderId를 모델에 추가
-        model.addAttribute("reviewId", reviewId);
         return "showSingleReview";
     }
     @PatchMapping("/{orderId}/patchReview/{reviewId}")
     public String patchReview(@PathVariable Long orderId,
                               @PathVariable Long reviewId,
                               @RequestBody ReviewRequestDto reviewRequestDto,
-                              @AuthenticationPrincipal UserDetailsImpl userDetails){
+                              @AuthenticationPrincipal UserDetailsImpl userDetails,
+                              Model model){
         String email = userDetails.getUser().getEmail();
-        reviewService.patchReview(orderId,reviewId,reviewRequestDto,email);
+        ReviewResponseDto reviewResponseDto = reviewService.patchReview(orderId, reviewId, reviewRequestDto, email);
+        model.addAttribute("reviewOne",reviewResponseDto);
         return "showSingleReview";
     }
     @DeleteMapping("/{orderId}/deleteReview/{reviewId}")
-    public String deleteReview(@PathVariable Long orderId,
+    @ResponseBody
+    public void deleteReview(@PathVariable Long orderId,
                                @PathVariable Long reviewId,
-                               @AuthenticationPrincipal UserDetailsImpl userDetails){
+                               @AuthenticationPrincipal UserDetailsImpl userDetails,
+                               Model model){
         String email = userDetails.getUser().getEmail();
         reviewService.deleteReview(orderId,reviewId,email);
-        return "showSingleReview";
     }
 }

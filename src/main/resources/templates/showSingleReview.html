@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="/common-sse.js"></script>
     <title>Show Menu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -127,8 +128,8 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var orderId = /*[[${orderId}]]*/ null; // 동적으로 설정하려는 가게 ID
-    var reviewId = /*[[${reviewId}]]*/ null;  // 동적으로 설정하려는 리뷰 ID
+    var orderId = /*[[${reviewOne.orderId}]]*/ null; // 동적으로 설정하려는 가게 ID
+    var reviewId = /*[[${reviewOne.id}]]*/ null;  // 동적으로 설정하려는 리뷰 ID
     /*]]>*/
 </script>
 <script>
@@ -154,7 +155,7 @@
 </script>
 <script>
     function deleteReview() {
-        var menuData = {
+        var reviewData  = {
             name: $('#point').val(),
             price: $('#content').val()
         };
@@ -163,7 +164,7 @@
             type: 'DELETE',
             url: '/api/orders/' + orderId + '/deleteReview/' + reviewId,
             contentType: 'application/json',
-            data: JSON.stringify(menuData),
+            data: JSON.stringify(reviewData),
             success: function (message) {
                 window.location.href = '/api/orders/' + orderId + '/multiReview';
             },

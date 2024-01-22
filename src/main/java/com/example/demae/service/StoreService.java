@@ -70,4 +70,8 @@ public class StoreService {
 				.map(store -> new StoreResponseDto().success(store))
 				.toList();
 	}
+
+	public Store findStoreForUser(Long storeId) {
+		return storeRepository.findById(storeId).orElseThrow();
+	}
 }
